@@ -1,4 +1,5 @@
 #!/usr/bin/env luajit
+local lfs = require("lfs")
 local ffi = require("ffi")
 ffi.cdef[[
     typedef struct DIR DIR;
@@ -67,11 +68,15 @@ end
 local dp_file_path = full_dp_path()
 
 paths = (table.concat(dp_file_path, "\n"))
-print(paths)
---if ffi.C.access(paths, 0) == 0 then
---    print("test")
---end
 
+
+local f = io.open(paths, "r")
+if f then
+    print("yes")
+    f:close()
+else
+    print("no")
+end
 
 
 
