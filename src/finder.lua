@@ -73,9 +73,16 @@ for _, name in ipairs(dp_file_path) do
     local test = io.open(name, "r")
     if test then
         local content = test:read("*a")
-        print(content)
         test:close()
     end
 end
 
 ffi.C.closedir(dir)
+
+for _, name in ipairs(directory_path) do
+    local test = io.open(name .. "/.dp", "r")
+    if test then
+        print(name)
+        test:close()
+    end
+end
