@@ -1,0 +1,29 @@
+# Rust / Cargo build outputs
+target/
+**/*.rs.bk
+*.rmeta
+
+# Compiled standalone binaries in src/
+src/builder
+src/finder-v2
+src/main
+
+# C / C++ compiled objects
+*.o
+*.a
+*.so
+*.dylib
+*.out
+
+# Editor and OS junk
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Core dumps & logs
+core
+core.*
+*.log
