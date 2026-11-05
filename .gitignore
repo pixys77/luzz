@@ -27,3 +27,8 @@ src/main
 core
 core.*
 *.log
+
+
+# Added by cargo
+
+/target

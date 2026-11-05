@@ -1,1 +1,2 @@
-ngtcp2
+name=ngtcp2
+language=C

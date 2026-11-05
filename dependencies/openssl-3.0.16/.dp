@@ -1,1 +1,2 @@
-openssl-3.0.16
+name=openssl-3.0.16
+language=C
