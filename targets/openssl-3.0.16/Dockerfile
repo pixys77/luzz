@@ -1,7 +1,30 @@
-FROM debian:bookworm-slim
-WORKDIR /usr/fuzz/
-RUN apt update && apt-get install -y ca-certificates wget curl clang llvm build-essential make cmake git ninja-build lld && rm -rf /var/lib/apt/lists/* 
-RUN wget -t 5 https://github.com/openssl/openssl/releases/download/openssl-3.0.16/openssl-3.0.16.tar.gz 
-COPY ./start.sh /usr/fuzz
-RUN chmod +x start.sh && ./start.sh
-RUN rm -rf start.sh
+FROM debian:trixie-slim
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+WORKDIR /usr/fuzz
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    clang \
+    llvm \
+    libclang-rt-dev \
+    ca-certificates \
+    wget \
+    perl \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /usr/fuzz/bin /usr/fuzz/corpus /usr/fuzz/artifacts /usr/fuzz/src
+
+COPY build.sh /usr/fuzz/build.sh
+COPY entrypoint.sh /usr/fuzz/entrypoint.sh
+COPY start.sh /usr/fuzz/start.sh
+
+RUN chmod +x /usr/fuzz/build.sh /usr/fuzz/entrypoint.sh /usr/fuzz/start.sh \
+    && /usr/fuzz/build.sh \
+    && rm -rf /usr/fuzz/build.sh /usr/fuzz/src
+
+ENV TARGET_NAME=openssl
+ENV TARGET_LANG=C
+
+ENTRYPOINT ["/usr/fuzz/entrypoint.sh"]

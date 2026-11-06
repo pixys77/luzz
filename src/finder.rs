@@ -10,7 +10,7 @@ pub fn list_components(){
     let name = entry.file_name();
       
         if dp_path.exists(){
-            let mut read_file = std::fs::read_to_string(dp_path);
+            let read_file = std::fs::read_to_string(dp_path);
             let read_file = read_file.unwrap();
             let mut language = "Undefined";
             for line in read_file.lines(){

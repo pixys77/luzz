@@ -1,6 +1,6 @@
 mod finder;
 mod builder;
-
+mod lifecycle;
 
 fn main() {
     let args: Vec<String> = std::env::args().collect();
@@ -10,8 +10,11 @@ fn main() {
     }
     match args[1].as_str(){
     "check" =>  finder::list_components(),
-    "run" if args.len() < 3 => println!("Error! Enter the target name"),
-    "run" if args.len() == 3 => builder::builder(&args[2]),
-    _ => println!("Unknown command")
+    
+    "run" if args.len() < 3         => println!("Error! Enter the target name"),
+    "run" if args.len() == 3        => builder::builder(&args[2]),
+    "lifecycle" if args.len() <3    => println!("Error! Enter the target to check lifecycle status "),
+    "lifecycle"                     => lifecycle::docker_lifecycle(&args[2]),
+    _                               => println!("Unknown command")
     }
 }
