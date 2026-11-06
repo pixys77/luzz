@@ -1,8 +1,10 @@
 pub fn list_components(){
+    let home = std::env::var("HOME").unwrap();
+
     println!("{:<10} {:>20}", "Component name", "Language:");
     println!("------------------------------------");
-
-    for entry in std::fs::read_dir("/home/emil/luzz/dependencies").unwrap() {
+    let deps_dir = format!("{home}/luzz/targets");
+    for entry in std::fs::read_dir(&deps_dir).unwrap() {
     let entry = entry.unwrap(); 
     let dp_path = entry.path().join(".dp");
     let name = entry.file_name();

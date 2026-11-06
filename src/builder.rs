@@ -1,6 +1,7 @@
 use std::process::Command;
 pub fn builder(target: &str){
-    let path = format!("dependencies/{target}");
+    let home = std::env::var("HOME").unwrap();
+    let path = format!("{home}/luzz/targets/{target}");
 
     let dp_path = format!("{path}/.dp");
     if std::path::Path::new(&dp_path).exists(){
