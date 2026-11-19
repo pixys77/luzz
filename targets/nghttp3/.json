@@ -1,0 +1,30 @@
+{
+    "schema_version": 1, 
+    "component_name": "",
+    "component_version": "",
+    "component_language" : "",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "dockerfile_path": ".",
+        "context": ".",
+        "system": "make",
+        "args":[
+            "-j$(nproc)",
+            "CC=clang"
+        ]
+    },
+    "fuzz_targets": [
+        {
+            "name": "asn1",
+            "engine": "libfuzzer",
+            "binary": "asn1_fuzzer"
+        },
+        {
+            "name": "x509",
+            "engine": "libfuzzer",
+            "binary": "x509_fuzzer"
+        }
+    ]
+}
+
+
